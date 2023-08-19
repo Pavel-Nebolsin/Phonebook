@@ -7,19 +7,24 @@ class PhoneBook:
     def __init__(self, file_name='data.json'):
         self.contacts = []
         self.file_name = file_name
-        self.load_data_from_file()
+        self._load_data_from_file()
 
     def add_contact(self, contact):
         self.contacts.append(contact)
-        self.save_data_to_file()
+        self._save_data_to_file()
 
-    def search_contacts(self, criteria):
-        pass
+    def get_contact(self, contact_index):
+        if 0 <= contact_index < len(self.contacts):
+            contact = self.contacts[contact_index]
+            return contact
+        return False
 
-    def edit_contact(self, contact, new_data):
-        pass
+    def edit_contact(self, contact_index, new_data):
+        contact = self.contacts[contact_index]
+        contact.update(new_data)
+        self._save_data_to_file()
 
-    def load_data_from_file(self):
+    def _load_data_from_file(self):
         try:
             with open(self.file_name, 'r', encoding="utf-8") as file:
                 data = json.load(file)
@@ -27,7 +32,7 @@ class PhoneBook:
         except FileNotFoundError:
             pass
 
-    def save_data_to_file(self):
+    def _save_data_to_file(self):
         data = [self.convert_field_names(contact.to_dict(), reverse=True) for contact in self.contacts]
         with open(self.file_name, 'w', encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
@@ -41,6 +46,23 @@ class PhoneBook:
             converted_key = field_mapping.get(key, key)
             converted_data[converted_key] = value
         return converted_data
+
+    def find_contacts(self, criteria):
+        converted_criteria = self.convert_field_names(criteria)
+        results = []
+        matching_indices = []
+        for index, contact in enumerate(self.contacts):
+            match = True
+            for key, value in converted_criteria.items():
+                if value.strip():  # Проверяем, не является ли значение пустой строкой или строкой из пробелов
+                    contact_value = contact.__dict__.get(key, "").lower()
+                    if value.lower() not in contact_value:
+                        match = False
+                        break
+            if match:
+                results.append(contact)
+                matching_indices.append(index)
+        return results, matching_indices
 
     field_name_mapping = {
         "фамилия": "last_name",
