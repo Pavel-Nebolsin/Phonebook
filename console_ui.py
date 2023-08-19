@@ -14,19 +14,14 @@ class ConsoleUI:
         elif mode == 'new':
             print("Введите данные нового контакта:")
 
-        new_contact = {'last_name': input("Фамилия: "),
-                       'first_name': input("Имя: "),
-                       'middle_name': input("Отчество: "),
-                       'organization': input("Организация: "),
-                       'work_phone': input("Телефон (рабочий): "),
-                       'personal_phone': input("Телефон (личный): ")}
+        data = {'last_name': input("Фамилия: "),
+                'first_name': input("Имя: "),
+                'middle_name': input("Отчество: "),
+                'organization': input("Организация: "),
+                'work_phone': input("Телефон (рабочий): "),
+                'personal_phone': input("Телефон (личный): ")}
 
-        return new_contact
-
-    @staticmethod
-    def input_search_criteria():
-
-        pass
+        return data
 
     @staticmethod
     def display_contacts(contacts, indexes=None):
@@ -50,9 +45,7 @@ class ConsoleUI:
             ]
             print(columns.format(*values))
         print('-' * len(header))
-    @staticmethod
-    def display_search_results(results):
-        pass
+
 
     @staticmethod
     def display_message(message, color=None):
@@ -75,8 +68,11 @@ class ConsoleUI:
         contact_index = int(input('Введите ID контакта для редактирования: ')) - 1
 
         if not phone_book.get_contact(contact_index):
-            ConsoleUI.display_message('Некорректный номер контакта', 'red')
-            return
+            ConsoleUI.display_message('Некорректный ID контакта', 'red')
+            return ConsoleUI.edit_contact(phone_book)
+
+        contact_to_edit = phone_book.get_contact(contact_index)
+        ConsoleUI.display_message(f'Редактирование контакта: {contact_to_edit}', 'yellow')
 
         new_data = ConsoleUI.input_data(mode='edit')
         phone_book.edit_contact(contact_index, new_data)
