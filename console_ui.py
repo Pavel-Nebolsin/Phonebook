@@ -131,8 +131,13 @@ class ConsoleUI:
 
             elif choice == '4':
                 contact_data = ConsoleUI.input_data(mode='filter')
-                _, indexes = phone_book.find_contacts(contact_data)
-                ConsoleUI.display_contacts(phone_book.contacts, indexes)
+                indices = phone_book.find_contacts(contact_data)
+                message = ('По заданным критериям найдены контакты: ', 'green') if indices \
+                    else ('По заданным критериям ничего не найдено: ', 'yellow')
+                ConsoleUI.display_message(*message)
+
+                if indices:
+                    ConsoleUI.display_contacts(phone_book.contacts, indices)
 
             elif choice == '0':
                 print('Выход...')

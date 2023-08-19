@@ -4,7 +4,6 @@ from contact import Contact
 
 
 def main():
-    phone_book = PhoneBook()
     run = True
     while run:
         phone_book = PhoneBook()

@@ -49,7 +49,6 @@ class PhoneBook:
 
     def find_contacts(self, criteria):
         converted_criteria = self.convert_field_names(criteria)
-        results = []
         matching_indices = []
         for index, contact in enumerate(self.contacts):
             match = True
@@ -60,9 +59,8 @@ class PhoneBook:
                         match = False
                         break
             if match:
-                results.append(contact)
                 matching_indices.append(index)
-        return results, matching_indices
+        return matching_indices
 
     field_name_mapping = {
         "фамилия": "last_name",
