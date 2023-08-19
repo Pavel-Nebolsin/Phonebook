@@ -14,21 +14,12 @@ class ConsoleUI:
         elif mode == 'new':
             print("Введите данные нового контакта:")
 
-        last_name = input("Фамилия: ")
-        first_name = input("Имя: ")
-        middle_name = input("Отчество: ")
-        organization = input("Организация: ")
-        work_phone = input("Телефон (рабочий): ")
-        personal_phone = input("Телефон (личный): ")
-
-        new_contact = {
-            "last_name": last_name,
-            "first_name": first_name,
-            "middle_name": middle_name,
-            "organization": organization,
-            "work_phone": work_phone,
-            "personal_phone": personal_phone
-        }
+        new_contact = {'last_name': input("Фамилия: "),
+                       'first_name': input("Имя: "),
+                       'middle_name': input("Отчество: "),
+                       'organization': input("Организация: "),
+                       'work_phone': input("Телефон (рабочий): "),
+                       'personal_phone': input("Телефон (личный): ")}
 
         return new_contact
 
@@ -39,7 +30,7 @@ class ConsoleUI:
 
     @staticmethod
     def display_contacts(contacts, indexes=None):
-        columns = '{:<4} | {:<12} | {:<10} | {:<12} | {:<12} | {:<15} | {:<15}'
+        columns = '{:<4} | {:<15} | {:<15} | {:<15} | {:<20} | {:<16} | {:<16}'
         header = columns.format(
             'ID', 'Фамилия', 'Имя', 'Отчество', 'Организация', 'Телефон(рабочий)', 'Телефон(личный)'
         )
@@ -58,7 +49,7 @@ class ConsoleUI:
                 contact.personal_phone
             ]
             print(columns.format(*values))
-
+        print('-' * len(header))
     @staticmethod
     def display_search_results(results):
         pass
@@ -151,5 +142,3 @@ class ConsoleUI:
                 ConsoleUI.display_message(
                     'Некорректный выбор. Пожалуйста, выберите действие из меню.',
                     'red')
-
-            print("_" * 100)
