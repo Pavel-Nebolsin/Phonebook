@@ -48,12 +48,12 @@
         "personal_phone": "+79951808614"
     },
     {
-        "last_name": "Гоминова",
-        "first_name": "Полина",
-        "middle_name": "Григорьевна",
+        "last_name": "Небольсин",
+        "first_name": "Павел",
+        "middle_name": "Валерьевич",
         "organization": "Effective Mobile",
         "work_phone": "+79123456789",
-        "personal_phone": "+79864974069"
+        "personal_phone": "+79163693488"
     },
     {
         "last_name": "Эльмпта",
@@ -611,7 +611,7 @@
         "last_name": "Скороходова",
         "first_name": "Инна",
         "middle_name": "Михаиловна",
-        "organization": "VK",
+        "organization": "Mail.ru",
         "work_phone": "+79765432109",
         "personal_phone": "+79333848291"
     },
@@ -1568,35 +1568,11 @@
         "personal_phone": "+79938909925"
     },
     {
-        "last_name": "Шеина",
-        "first_name": "Марианна",
-        "middle_name": "Алексеевна",
-        "organization": "Тинькофф",
-        "work_phone": "+79123456789",
-        "personal_phone": "+79373211842"
-    },
-    {
-        "last_name": "Маринин",
-        "first_name": "Филипп",
-        "middle_name": "Давидович",
-        "organization": "Effective Mobile",
-        "work_phone": "+79123456789",
-        "personal_phone": "+79881964163"
-    },
-    {
-        "last_name": "Поликарпов",
-        "first_name": "Венедикт",
-        "middle_name": "Степанович",
-        "organization": "VK",
-        "work_phone": "+79765432109",
-        "personal_phone": "+79961768587"
-    },
-    {
-        "last_name": "Осинов",
-        "first_name": "Артем",
-        "middle_name": "Ипполитович",
-        "organization": "Telegram",
-        "work_phone": "+79887766554",
-        "personal_phone": "+79608053627"
+        "last_name": "ыва",
+        "first_name": "ыва",
+        "middle_name": "ыва",
+        "organization": "ыва",
+        "work_phone": "345345",
+        "personal_phone": "3453453"
     }
 ]
