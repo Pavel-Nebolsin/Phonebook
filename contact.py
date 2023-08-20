@@ -1,5 +1,6 @@
 class Contact:
-    def __init__(self, last_name="", first_name="", middle_name="", organization="", work_phone="", personal_phone=""):
+    def __init__(self, last_name="", first_name="", middle_name="",
+                 organization="", work_phone="", personal_phone=""):
         self.last_name = last_name
         self.first_name = first_name
         self.middle_name = middle_name
@@ -13,22 +14,15 @@ class Contact:
                f" |  {self.personal_phone}"
 
     def update(self, new_data):
-        self.last_name = new_data['last_name'] if new_data.get('last_name', '') else self.last_name
-        self.first_name = new_data['first_name'] if new_data.get('first_name', '') else self.first_name
-        self.middle_name = new_data['middle_name'] if new_data.get('middle_name', '') else self.middle_name
-        self.organization = new_data['organization'] if new_data.get('organization', '') else self.organization
-        self.work_phone = new_data['work_phone'] if new_data.get('work_phone', '') else self.work_phone
-        self.personal_phone = new_data['personal_phone'] if new_data.get('personal_phone', '') else self.personal_phone
+        self.last_name = new_data.get('last_name', '') or self.last_name
+        self.first_name = new_data.get('first_name', '') or self.first_name
+        self.middle_name = new_data.get('middle_name', '') or self.middle_name
+        self.organization = new_data.get('organization', '') or self.organization
+        self.work_phone = new_data.get('work_phone', '') or self.work_phone
+        self.personal_phone = new_data.get('personal_phone', '') or self.personal_phone
 
     def to_dict(self):
-        return {
-            "last_name": self.last_name,
-            "first_name": self.first_name,
-            "middle_name": self.middle_name,
-            "organization": self.organization,
-            "work_phone": self.work_phone,
-            "personal_phone": self.personal_phone
-        }
+        return self.__dict__
 
     def display(self):
         return f"Фамилия: {self.last_name}\nИмя: {self.first_name}\nОтчество: {self.middle_name}\n" \

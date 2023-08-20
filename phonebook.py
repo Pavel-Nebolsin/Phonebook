@@ -1,12 +1,11 @@
 import json
-
 from contact import Contact
 
 
 class PhoneBook:
-    def __init__(self, file_name='data.json'):
+    def __init__(self, data_file_path='data.json'):
         self.contacts = []
-        self.file_name = file_name
+        self.data_file_path = data_file_path
         self._load_data_from_file()
 
     def add_contact(self, contact):
@@ -47,7 +46,7 @@ class PhoneBook:
 
     def _load_data_from_file(self):
         try:
-            with open(self.file_name, 'r', encoding="utf-8") as file:
+            with open(self.data_file_path, 'r', encoding="utf-8") as file:
                 data = json.load(file)
                 self.contacts = [Contact(**contact_data) for contact_data in data]
         except FileNotFoundError:
@@ -55,7 +54,7 @@ class PhoneBook:
 
     def _save_data_to_file(self):
         data = [contact.to_dict() for contact in self.contacts]
-        with open(self.file_name, 'w', encoding="utf-8") as file:
+        with open(self.data_file_path, 'w', encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
     def clear_data(self):

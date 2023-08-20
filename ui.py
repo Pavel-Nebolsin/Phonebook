@@ -29,7 +29,7 @@ class UI:
         return cleaned_data
 
     @staticmethod
-    def display_contacts_list(contacts, indices=None, page=2, contacts_per_page=20):
+    def display_contacts_list(contacts, indices=None, page=1, contacts_per_page=20):
         columns = '{:<4} | {:<15} | {:<15} | {:<15} | {:<20} | {:<16} | {:<16}'
         header = columns.format(
             'ID', 'Фамилия', 'Имя', 'Отчество', 'Организация', 'Телефон(рабочий)', 'Телефон(личный)'
