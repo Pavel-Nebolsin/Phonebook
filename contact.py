@@ -22,13 +22,15 @@ class Contact:
 
     def to_dict(self):
         return {
-            "фамилия": self.last_name,
-            "имя": self.first_name,
-            "отчество": self.middle_name,
-            "название организации": self.organization,
-            "телефон рабочий": self.work_phone,
-            "телефон личный": self.personal_phone
+            "last_name": self.last_name,
+            "first_name": self.first_name,
+            "middle_name": self.middle_name,
+            "organization": self.organization,
+            "work_phone": self.work_phone,
+            "personal_phone": self.personal_phone
         }
 
     def display(self):
-        pass
+        return f"Фамилия: {self.last_name}\nИмя: {self.first_name}\nОтчество: {self.middle_name}\n" \
+               f"Организация: {self.organization}\nТелефон (рабочий): {self.work_phone}\n" \
+               f"Телефон (личный): {self.personal_phone}"
