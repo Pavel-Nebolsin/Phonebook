@@ -1,12 +1,12 @@
+from helpers import clear_console
 from phonebook import PhoneBook
 from ui import UI
-from contact import Contact
 
 
 def main():
     run = True
     while run:
-        UI.clear_console()
+        clear_console()
         phone_book = PhoneBook()
         run = UI.run(phone_book)
 

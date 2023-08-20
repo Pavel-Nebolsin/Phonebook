@@ -31,7 +31,6 @@ class PhoneBook:
         self._save_data_to_file()
         return removed_contact
 
-
     def find_contacts(self, criteria):
         matching_indices = []
         for index, contact in enumerate(self.contacts):
@@ -59,9 +58,6 @@ class PhoneBook:
         with open(self.file_name, 'w', encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
-
     def clear_data(self):
-        self.contacts = []  # Очищаем список контактов
-        self._save_data_to_file()  # Сохраняем изменения в файле
-
-
+        self.contacts = []
+        self._save_data_to_file()
