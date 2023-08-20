@@ -5,9 +5,6 @@ import requests
 from contact import Contact
 from phonebook import PhoneBook
 
-api_url = "https://api.randomdatatools.ru/?count=100&params=LastName,FirstName,FatherName,Phone,Phone"
-response = requests.get(api_url)
-data = response.json()
 
 organizations_with_phones = [
     ("Effective Mobile", "+79123456789"),
@@ -22,6 +19,11 @@ organizations_with_phones = [
     ("Тинькофф", "+79004456799")
 ]
 
+contacts_count = 100
+
+api_url = f"https://api.randomdatatools.ru/?count={contacts_count}&params=LastName,FirstName,FatherName,Phone,Phone"
+response = requests.get(api_url)
+data = response.json()
 
 pb = PhoneBook()
 pb.clear_data()
