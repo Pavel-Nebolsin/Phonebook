@@ -3,7 +3,7 @@ from phonebook import PhoneBook
 from ui import UI
 
 
-def main():
+def main() -> None:
     run = True
     while run:
         clear_console()

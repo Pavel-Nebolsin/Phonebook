@@ -2,12 +2,13 @@ import math
 
 from contact import Contact
 from helpers import text_color, clear_console, move_cursor_up
+from phonebook import PhoneBook
 
 
 class UI:
 
     @staticmethod
-    def input_data(mode='new'):
+    def input_data(mode: str = 'new') -> dict:
         if mode == 'filter':
             message = 'Введите значения параметров поиска (или нажмите Enter, чтобы не включать в поиск):'
         elif mode == 'edit':
@@ -29,7 +30,8 @@ class UI:
         return cleaned_data
 
     @staticmethod
-    def display_contacts_list(contacts, indices=None, page=1, contacts_per_page=20):
+    def display_contacts_list(contacts: list[Contact], indices: list[int] | None = None,
+                              page: int = 1, contacts_per_page: int = 20) -> None:
         columns = '{:<4} | {:<15} | {:<15} | {:<15} | {:<20} | {:<16} | {:<16}'
         header = columns.format(
             'ID', 'Фамилия', 'Имя', 'Отчество', 'Организация', 'Телефон(рабочий)', 'Телефон(личный)'
@@ -55,23 +57,23 @@ class UI:
         print(' ' * ((len(header) // 2) - len(page_print)), text_color(page_print, 'blue'))
 
     @staticmethod
-    def display_message(message, color=None):
+    def display_message(message: str, color: str = None) -> None:
         print(text_color(message, color))
 
     @staticmethod
-    def search(phone_book):
+    def search(phone_book: PhoneBook) -> None:
         move_cursor_up(1)
         search_data = UI.input_data(mode='filter')
         indices = phone_book.find_contacts(search_data)
-        message = (f'По заданным критериям найдено {len(indices)} контактов: ', 'green') \
-            if indices else ('По заданным критериям ничего не найдено: ', 'yellow')
-        UI.display_message(*message)
-
         if indices:
+            UI.display_message(f'По заданным критериям найдено {len(indices)} контактов: ', 'green')
             UI.paginator(phone_book.contacts, indices)
+        else:
+            input(text_color('По заданным критериям ничего не найдено (Enter - продолжить): ', 'yellow'))
+            clear_console()
 
     @staticmethod
-    def edit_contact(phone_book):
+    def edit_contact(phone_book: PhoneBook) -> None:
         contact_index = UI.validate_input_id(phone_book)
 
         clear_console()
@@ -84,7 +86,7 @@ class UI:
         UI.show_contact_modal(edited_contact, 'изменён', 'green')
 
     @staticmethod
-    def delete_contact(phone_book):
+    def delete_contact(phone_book: PhoneBook) -> None:
         contact_index = UI.validate_input_id(phone_book)
 
         clear_console()
@@ -93,7 +95,7 @@ class UI:
         UI.show_contact_modal(contact_to_delete, 'удалён', 'red')
 
     @staticmethod
-    def add_contact(phone_book):
+    def add_contact(phone_book: PhoneBook) -> None:
         clear_console()
         new_contact = UI.input_data()
         contact = Contact(**new_contact)
@@ -101,14 +103,14 @@ class UI:
         UI.show_contact_modal(contact, 'добавлен', 'green')
 
     @staticmethod
-    def show_contact_modal(contact, action, color):
+    def show_contact_modal(contact: Contact, action: str, color: str) -> None:
         clear_console()
         UI.display_message(f'Контакт успешно {action}:\n\n{contact.display()}\n', color)
         input('Нажмите Enter чтобы продолжить...')
         clear_console()
 
     @staticmethod
-    def paginator(contacts, indices=None):
+    def paginator(contacts: list[Contact], indices: list[int] | None = None) -> None:
         length = len(indices) if indices else len(contacts)
         while True:
             contacts_per_page = input(text_color(
@@ -142,7 +144,7 @@ class UI:
             UI.display_contacts_list(contacts, indices, validated_page_value, validated_contacts_per_page)
 
     @staticmethod
-    def display_menu():
+    def display_menu() -> None:
         menu_items = {
             '1': 'Вывести все контакты',
             '2': 'Добавить новый контакт',
@@ -156,7 +158,7 @@ class UI:
             print(f'{key}. {value}')
 
     @staticmethod
-    def validate_input_id(phone_book):
+    def validate_input_id(phone_book: PhoneBook) -> int | None:
         while True:
             contact_index = input(text_color('Введите ID контакта:', 'yellow'))
             try:
@@ -171,7 +173,7 @@ class UI:
                 UI.display_message(f'Введите ID от 1 до {len(phone_book.contacts)}', 'red')
 
     @staticmethod
-    def validate_paginator_values(value, max_value):
+    def validate_paginator_values(value: str, max_value: int) -> int | None:
         try:
             value = int(value)
 
@@ -184,7 +186,7 @@ class UI:
         return clamped_value
 
     @staticmethod
-    def run(phone_book):
+    def run(phone_book: PhoneBook) -> int | None:
         while True:
             UI.display_menu()
             choice = input('\nВыберите действие: ')
@@ -214,4 +216,3 @@ class UI:
                                  '(Enter - продолжить)',
                                  'red'))
                 move_cursor_up(10)
-
