@@ -20,6 +20,10 @@ cd phonebook
 ```
 pip install -r requirements.txt
 ```
+или просто
+```
+pip install requests
+```
 3. Можно обойтись без установки `requests`, файл с данными `data.json` уже содержит 300 контактов для тестирования.
 
 ## Использование
