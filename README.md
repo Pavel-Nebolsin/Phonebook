@@ -12,7 +12,7 @@
 
 1. Склонируйте репозиторий:
 ```bash
-git clone https://github.com/your-username/phonebook.git
+git clone https://github.com/Pavel-Nebolsin/Phonebook.git
 cd phonebook
 ```
 2. Если хотите заполнить телефонную книгу через API (запустить файл `fill_up_phonebook.py`, инструкция внутри) <br>необходимо установить библиотеку 'requests':
