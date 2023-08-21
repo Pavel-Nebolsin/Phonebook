@@ -15,7 +15,7 @@
 git clone https://github.com/Pavel-Nebolsin/Phonebook.git
 cd phonebook
 ```
-2. Если хотите заполнить телефонный справчоник, используя API (запустить файл `fill_up_phonebook.py`, инструкция внутри) необходимо установить библиотеку `requests`<br>
+2. Если хотите заполнить телефонный справчоник, используя API (запустить файл `fill_up_phonebook.py`, инструкция внутри)<br> необходимо установить библиотеку `requests`<br>
 если нужно, создайте виртуальное окружение <br>(`python -m venv venv` для Windows, `python3 -m venv venv` для Windows) и далее выполните в консоли:
 ```
 pip install -r requirements.txt
