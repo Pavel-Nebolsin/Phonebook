@@ -9,6 +9,12 @@ class UI:
 
     @staticmethod
     def input_data(mode: str = 'new') -> dict:
+        """
+        Получает данные контакта от пользователя в зависимости от режима.
+
+        :param mode: Режим ввода данных ('new', 'filter' или 'edit').
+        :return: Словарь с введенными данными.
+        """
         if mode == 'filter':
             message = 'Введите значения параметров поиска (или нажмите Enter, чтобы не включать в поиск):'
         elif mode == 'edit':
@@ -32,6 +38,15 @@ class UI:
     @staticmethod
     def display_contacts_list(contacts: list[Contact], indices: list[int] | None = None,
                               page: int = 1, contacts_per_page: int = 20) -> None:
+        """
+        Отображает список контактов, полученных в результате поиска,
+        или список всех контактов телефонного справочника.
+
+        :param contacts: Список контактов.
+        :param indices: Список индексов контактов, которые подошли под критерии поиска.
+        :param page: Номер текущей страницы.
+        :param contacts_per_page: Количество контактов на странице.
+        """
         columns = '{:<4} | {:<15} | {:<15} | {:<15} | {:<20} | {:<16} | {:<16}'
         header = columns.format(
             'ID', 'Фамилия', 'Имя', 'Отчество', 'Организация', 'Телефон(рабочий)', 'Телефон(личный)'
@@ -58,10 +73,22 @@ class UI:
 
     @staticmethod
     def display_message(message: str, color: str = None) -> None:
+        """
+        Отображает сообщение с указанным цветом.
+
+        :param message: Сообщение для отображения.
+        :param color: Цвет сообщения ('red', 'green', 'yellow', 'blue', или None(белый)).
+        """
         print(text_color(message, color))
+
 
     @staticmethod
     def search(phone_book: PhoneBook) -> None:
+        """
+        Отображение контактов по заданным критериям.
+
+        :param phone_book: Экземпляр телефонного справочника.
+        """
         move_cursor_up(1)
         search_data = UI.input_data(mode='filter')
         indices = phone_book.find_contacts(search_data)
@@ -74,6 +101,11 @@ class UI:
 
     @staticmethod
     def edit_contact(phone_book: PhoneBook) -> None:
+        """
+        Отображение сценария редактирования контакта из телефонного справочника.
+
+        :param phone_book: Экземпляр телефонного справочника.
+        """
         contact_index = UI.validate_input_id(phone_book)
 
         clear_console()
@@ -87,6 +119,11 @@ class UI:
 
     @staticmethod
     def delete_contact(phone_book: PhoneBook) -> None:
+        """
+        Отображение сценария удаления контакта из телефонного справочника.
+
+        :param phone_book: Экземпляр телефонного справочника.
+        """
         contact_index = UI.validate_input_id(phone_book)
 
         clear_console()
@@ -96,6 +133,11 @@ class UI:
 
     @staticmethod
     def add_contact(phone_book: PhoneBook) -> None:
+        """
+        Отображение сценария добавление нового контакта в телефонный справочник.
+
+        :param phone_book: Экземпляр телефонной книги.
+        """
         clear_console()
         new_contact = UI.input_data()
         contact = Contact(**new_contact)
@@ -104,6 +146,13 @@ class UI:
 
     @staticmethod
     def show_contact_modal(contact: Contact, action: str, color: str) -> None:
+        """
+        Отображает модальное окно с информацией о контакте.
+
+        :param contact: Контакт, для которого отображается модальное окно.
+        :param action: Действие, выполненное с контактом (например, 'добавлен', 'изменен', 'удален').
+        :param color: Цвет модального окна ('green', 'red' и т.д.).
+        """
         clear_console()
         UI.display_message(f'Контакт успешно {action}:\n\n{contact.display()}\n', color)
         input('Нажмите Enter чтобы продолжить...')
@@ -111,6 +160,12 @@ class UI:
 
     @staticmethod
     def paginator(contacts: list[Contact], indices: list[int] | None = None) -> None:
+        """
+        Реализует пагинацию для списка контактов.
+
+        :param contacts: Список всех контактов.
+        :param indices: Список индексов контактов (если был произведён поиск) для пагинации (по умолчанию None).
+        """
         length = len(indices) if indices else len(contacts)
         while True:
             contacts_per_page = input(text_color(
@@ -145,6 +200,9 @@ class UI:
 
     @staticmethod
     def display_menu() -> None:
+        """
+        Отображает меню пользовательского интерфейса.
+        """
         menu_items = {
             '1': 'Вывести все контакты',
             '2': 'Добавить новый контакт',
@@ -159,6 +217,12 @@ class UI:
 
     @staticmethod
     def validate_input_id(phone_book: PhoneBook) -> int | None:
+        """
+        Проверяет и возвращает ID контакта, введенное пользователем.
+
+        :param phone_book: Экземпляр телефонной книги.
+        :return: Возвращает индекс контакта или None, если ввод некорректен.
+        """
         while True:
             contact_index = input(text_color('Введите ID контакта:', 'yellow'))
             try:
@@ -174,6 +238,14 @@ class UI:
 
     @staticmethod
     def validate_paginator_values(value: str, max_value: int) -> int | None:
+        """
+        Проверяет и возвращает значение для пагинации.
+        Используется для проверки введенного номера страницы или количества контактов на одной странице
+
+        :param value: Введенное пользователем значение.
+        :param max_value: Максимальное допустимое значение.
+        :return: Возвращает значение для пагинации или None, если ввод некорректен.
+        """
         try:
             value = int(value)
 
@@ -187,6 +259,12 @@ class UI:
 
     @staticmethod
     def run(phone_book: PhoneBook) -> int | None:
+        """
+        Запускает пользовательский интерфейс телефонной книги.
+
+        :param phone_book: Экземпляр телефонной книги.
+        :return: Возвращает 0 при завершении работы.
+        """
         while True:
             UI.display_menu()
             choice = input('\nВыберите действие: ')
