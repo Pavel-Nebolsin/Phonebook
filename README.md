@@ -28,11 +28,11 @@ pip install requests
 
 ## Использование
 1. Запустите приложение:<br>
-Windows: 
+- Windows: 
 ```
 python main.py
 ```
-Linux: 
+- Linux: 
 ```
 python3 main.py
 ```
